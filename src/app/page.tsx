@@ -1,103 +1,61 @@
-import Image from "next/image";
+"use client";
 
-export default function Home() {
+import Slide from "@/components/slide";
+import MotionPlayground from "@/components/motionPlayground";
+import MotionPlaygroundAdvanced from "@/components/motionPlaygroundAdvanced";
+
+export default function Page() {
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+    <main className="w-full">
+      <Slide index={1} bgColor="bg-gradient-to-b from-cyan-900 to-black"
+        title="SEMINAR: Tìm hiểu về Motion UI - Giao diện chuyển động trong thiết kế hiện đại">
+        <p className="mt-4 text-cyan-100">
+          <b>SE347.Q13 - Nhóm 15</b><br/>
+          23520378 Nguyễn Lê Duy<br/>
+          23521472 Nguyễn Anh Thi<br/>
+          23521626 Lê Nữ Khánh Trang
+        </p>
+      </Slide>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+      <Slide index={2} bgColor="bg-gradient-to-b from-black to-gray-900"
+        title="Bối cảnh & Lịch sử của Motion UI">
+        <p>
+          Motion UI xuất phát từ thiết kế game và phim ảnh, sau đó lan sang web để mang lại
+          trải nghiệm tự nhiên, hướng dẫn người dùng trực quan hơn.
+        </p>
+      </Slide>
+
+      <Slide index={3} bgColor="bg-gradient-to-b from-gray-900 to-black"
+        title="Vai trò của Motion UI">
+        <ul className="text-left list-disc max-w-2xl mx-auto space-y-3">
+          <li>Hướng dẫn người dùng qua chuyển động</li>
+          <li>Tăng cảm xúc và tính tương tác</li>
+          <li>Phản hồi hành động tức thì</li>
+          <li>Tạo thương hiệu và sự chuyên nghiệp</li>
+        </ul>
+      </Slide>
+
+      <Slide index={4} bgColor="bg-gradient-to-b from-black to-cyan-900"
+        title="Playground: Fade / Scale / Slide">
+        <div className="flex flex-wrap justify-center gap-8 mt-8">
+          <MotionPlayground type="fade" />
+          <MotionPlayground type="scale" />
+          <MotionPlayground type="slide" />
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
+      </Slide>
+
+      <Slide index={5} bgColor="bg-gradient-to-b from-cyan-900 to-black"
+        title="Playground: Motion UI nâng cao">
+        <MotionPlaygroundAdvanced/>
         <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+  href="/parallax"
+  className="px-6 py-3 mt-6 bg-cyan-600 hover:bg-cyan-700 text-white rounded-xl font-semibold transition-colors"
+>
+  🚀 Xem Demo Parallax Toàn Trang
+</a>
+
+      </Slide>
+
+    </main>
   );
 }
