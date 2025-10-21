@@ -1,4 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap');
 @import "tailwindcss";
+
+
+/* Định nghĩa biến theme */
+@theme {
+  --font-montserrat: "Montserrat", sans-serif;
+}
+
+/* Tạo utility class mới */
+@utility font-montserrat {
+  font-family: var(--font-montserrat);
+}
 
 
 :root {
@@ -6,22 +18,19 @@
   --foreground: #171717;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-/* html, body {
+
+
+html, body {
   scroll-behavior: smooth;
   background-color: black;
   color: white;
+  font-family: var(--font-montserrat);
 }
 main {
   scroll-snap-type: y mandatory;
   overflow-y: scroll;
   height: 100vh;
-} */
+}
 
 @media (prefers-color-scheme: dark) {
   :root {
@@ -34,4 +43,20 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+.backface-hidden {
+  backface-visibility: hidden;
+}
+
+.rotateY-180 {
+  transform: rotateY(180deg);
+}
+
+.perspective-\[1000px\] {
+  perspective: 1000px;
+}
+
+.transform-style-preserve-3d {  
+  transform-style: preserve-3d;
 }
