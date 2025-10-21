@@ -183,7 +183,7 @@ function BankTransferDemo() {
   );
 }
 
-function ConfettiFinale() {
+export function ConfettiFinale() {
   const ref = useRef<HTMLDivElement | null>(null);
   const isInView = useInView(ref, { once: true });
 
@@ -233,7 +233,7 @@ function ConfettiFinale() {
         Cảm ơn thầy và các bạn đã lắng nghe 💙
       </motion.h1>
 
-      <div className="mt-8 text-gray-300">
+      <div className="mt-8 text-gray-300 text-2xl">
         <p className="font-semibold text-cyan-300">Nhóm 15 - SE347.Q13</p>
         <p>Nguyễn Lê Duy • Nguyễn Anh Thi • Lê Nữ Khánh Trang</p>
       </div>
