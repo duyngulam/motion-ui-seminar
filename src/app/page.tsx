@@ -906,7 +906,7 @@ export default function Page() {
         </a>
       </Slide>
 
-      <Slide
+      {/* <Slide
         index={12}
         bgColor="bg-gradient-to-b from-cyan-950 via-black to-cyan-950"
         title=""
@@ -914,7 +914,7 @@ export default function Page() {
         <div className="flex flex-col items-center justify-center h-[70vh] text-center space-y-6">
           <ConfettiFinale />
         </div>
-      </Slide>
+      </Slide> */}
     </main>
   );
 }
