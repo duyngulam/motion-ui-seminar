@@ -8,6 +8,16 @@ import MotionPlaygroundAdvanced from "@/components/motionPlaygroundAdvanced";
 import confetti from "canvas-confetti";
 import { useInView } from "framer-motion";
 
+const libraries = [
+  { name: "Animate.css", logo: "/animatecss.jpg" },
+  { name: "Velocity.js", logo: "/velocityjs.jpg" },
+  { name: "React Spring", logo: "/reactspring.webp" },
+  { name: "Lottie", logo: "/Lottie.png" },
+  { name: "Mo.js", logo: "/mojs.png" },
+  { name: "Popmotion", logo: "/popmotion.png" },
+  { name: "Three.js", logo: "/threejs.png" },
+];
+
 function ModalDemo() {
   const [open, setOpen] = useState(false);
 
@@ -243,6 +253,21 @@ export function ConfettiFinale() {
 
 export default function Page() {
   const [added, setAdded] = useState(false);
+  const [startIndex, setStartIndex] = useState(0);
+
+  const prev = () => {
+    setStartIndex((prev) => (prev - 1 + libraries.length) % libraries.length);
+  };
+
+  const next = () => {
+    setStartIndex((prev) => (prev + 1) % libraries.length);
+  };
+
+  const visible = [];
+  for (let i = 0; i < 3; i++) {
+    visible.push(libraries[(startIndex + i) % libraries.length]);
+  }
+
   return (
     <main className="w-full">
       <Slide
@@ -854,9 +879,322 @@ export default function Page() {
           </motion.div>
         </div>
       </Slide>
-
+      
       <Slide
         index={10}
+        bgColor="bg-gradient-to-b from-black to-cyan-900"
+        title="Framer Motion"
+      >
+  <div className="max-w-5xl mx-auto text-gray-200 mt-8 space-y-6">
+
+    <div className="flex flex-col md:flex-row items-center justify-between w-full max-w-5xl mx-auto">
+      <div className="text-left text-cyan-100 leading-relaxed md:w-1/2 space-y-1">
+      Framer Motion là thư viện animation dành cho React (có phiên bản JS & Vue).
+      Cung cấp API khai báo tự nhiên ngay trong component:
+      </div>
+
+      <img
+        src="/framerMotion.png"
+        alt="Framer Motion Illustration"
+        className="w-32 md:w-80 rounded-2xl shadow-lg border border-cyan-700/50"
+      />
+    </div>
+
+    <motion.div
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      transition={{ duration: 0.8 }}
+      className="bg-gray-800/60 p-5 rounded-xl border border-cyan-700/40"
+    >
+      <code className="text-cyan-300">
+        {`<motion.div animate={{ x: 100 }} />`}
+      </code>
+    </motion.div>
+
+    <ul className="list-disc list-inside space-y-2 text-left">
+      <li>Tối ưu hiệu năng, GPU-accelerated</li>
+      <li>Layout animation mạnh (tự tính toán vị trí)</li>
+      <li>AnimatePresence hỗ trợ animation vào/ra</li>
+      <li>Không cần ref như GSAP trong React</li>
+    </ul>
+
+    {/* DEMO */}
+    <div className="flex flex-col md:flex-row gap-6">
+
+    <div className="flex-1 space-y-2">
+      <p className="text-cyan-300 font-semibold mb-3">🔹 Hover để xem chuyển động</p>
+      <motion.div
+        whileHover={{ x: 80, rotate: 8, scale: 1.1 }}
+        transition={{ type: "spring", stiffness: 120 }}
+        className="w-24 h-24 bg-cyan-600 rounded-xl shadow-lg"
+      />
+      <details className="bg-gray-800/60 p-4 rounded-xl border border-cyan-700/40 cursor-pointer">
+        <summary className="text-cyan-300 font-semibold">Code</summary>
+        <pre className="text-gray-200 mt-2 text-sm whitespace-pre-wrap text-left">
+        {`<motion.div
+          whileHover={{ x: 80, rotate: 8, scale: 1.1 }}
+          transition={{ type: 'spring', stiffness: 120 }}
+          className='w-24 h-24 bg-cyan-600 rounded-xl shadow-lg'
+        />`}</pre>
+      </details>
+    </div>
+
+    {/* DEMO 2 */}
+    <div className="flex-1 space-y-2">
+      <p className="text-cyan-300 font-semibold">🔹 Infinity</p>
+      <motion.div
+        animate={{ scale: [1, 1.3, 1] }}
+        transition={{ repeat: Infinity, duration: 1.5 }}
+        className="w-24 h-24 bg-purple-600 rounded-xl shadow-lg"
+      />
+      <details className="bg-gray-800/60 p-4 rounded-xl border border-cyan-700/40 cursor-pointer">
+        <summary className="text-cyan-300 font-semibold">Code</summary>
+        <pre className="text-gray-200 mt-2 text-sm whitespace-pre-wrap text-left">
+        {`<motion.div
+          animate={{ scale: [1, 1.3, 1] }}
+          transition={{ repeat: Infinity, duration: 1.5 }}
+          className='w-24 h-24 bg-purple-600 rounded-xl shadow-lg'
+        />`}</pre>
+      </details>
+    </div>
+    </div>
+  </div>
+      </Slide>
+
+<Slide
+  index={11}
+  bgColor="bg-gradient-to-b from-gray-900 to-black"
+  title="Anime.js"
+>
+  <div className="max-w-6xl mx-auto text-gray-200 mt-8 space-y-6">
+
+    <div className="flex flex-col md:flex-row items-center justify-between w-full max-w-6xl mx-auto">
+      <div className="text-left text-cyan-100 leading-relaxed md:w-1/2 space-y-1">
+        Anime.js là thư viện JS nhỏ gọn, API trực quan và dễ học.  
+        Hỗ trợ animate CSS, SVG, DOM, Object.
+      </div>
+
+      <img
+        src="/animejs.jpg"
+        alt="Anime.js Illustration"
+        className="w-32 md:w-80 rounded-2xl shadow-lg border border-cyan-700/50"
+      />
+    </div>
+
+    <p className="text-cyan-300 font-semibold">Demo minh hoạ</p>
+
+    {/* Container cho 3 demo */}
+    <div className="flex flex-col md:flex-row gap-6">
+
+      {/* Demo 1: translateX */}
+      <div className="flex-1 space-y-2">
+        <div className="relative h-32 flex justify-center items-center">
+          <div id="anime-box" className="box w-12 h-12 bg-pink-500 rounded-xl"></div>
+        </div>
+        <details className="bg-gray-800/60 p-4 rounded-xl border border-cyan-700/40 cursor-pointer">
+          <summary className="text-cyan-300 font-semibold">Code</summary>
+          <pre className="text-gray-200 mt-2 text-sm whitespace-pre-wrap text-left">
+            {`anime({
+  targets: "#anime-box",
+  translateX: [0, 250],
+  direction: "alternate",
+  loop: true,
+  easing: "easeInOutQuad"
+});`}
+          </pre>
+        </details>
+      </div>
+
+      {/* Demo 2: rotate liên tục */}
+      <div className="flex-1 space-y-2">
+        <div className="relative h-32 flex justify-center items-center">
+          <div id="rotate-box" className="box w-12 h-12 bg-green-500 rounded-xl"></div>
+        </div>
+        <details className="bg-gray-800/60 p-4 rounded-xl border border-cyan-700/40 cursor-pointer">
+          <summary className="text-cyan-300 font-semibold">Code</summary>
+          <pre className="text-gray-200 mt-2 text-sm whitespace-pre-wrap text-left">
+            {`anime({
+  targets: "#rotate-box",
+  rotate: '1turn',
+  loop: true,
+  easing: "linear",
+  duration: 2000
+});`}
+          </pre>
+        </details>
+      </div>
+
+      {/* Demo 3: scale lên/xuống */}
+      <div className="flex-1 space-y-2">
+        <div className="relative h-32 flex justify-center items-center">
+          <div id="scale-box" className="box w-12 h-12 bg-blue-500 rounded-xl"></div>
+        </div>
+        <details className="bg-gray-800/60 p-4 rounded-xl border border-cyan-700/40 cursor-pointer">
+          <summary className="text-cyan-300 font-semibold">Code</summary>
+          <pre className="text-gray-200 mt-2 text-sm whitespace-pre-wrap text-left">
+            {`anime({
+  targets: "#scale-box",
+  scale: [1, 1.5],
+  direction: "alternate",
+  loop: true,
+  easing: "easeInOutSine",
+  duration: 800
+});`}
+          </pre>
+        </details>
+      </div>
+
+    </div>
+
+    {/* Script Anime.js */}
+    <script>
+      {`
+        if (window.anime) {
+          anime({
+            targets: "#anime-box",
+            translateX: [0, 250],
+            direction: "alternate",
+            loop: true,
+            easing: "easeInOutQuad"
+          });
+
+          anime({
+            targets: "#rotate-box",
+            rotate: '1turn',
+            loop: true,
+            easing: "linear",
+            duration: 2000
+          });
+
+          anime({
+            targets: "#scale-box",
+            scale: [1, 1.5],
+            direction: "alternate",
+            loop: true,
+            easing: "easeInOutSine",
+            duration: 800
+          });
+        }
+      `}
+    </script>
+
+  </div>
+</Slide>
+
+<Slide
+  index={12}
+  bgColor="bg-gradient-to-b from-black to-gray-900"
+  title="Motion UI (ZURB Foundation)"
+>
+  <div className="max-w-5xl mx-auto text-gray-200 mt-8 space-y-6">
+
+    <div className="flex flex-col md:flex-row items-center justify-between w-full max-w-6xl mx-auto space-y-4 md:space-y-0 md:space-x-6">
+      <img
+        src="/image.png"
+        alt="Motion UI ZURB Illustration"
+        className="w-32 md:w-80 rounded-2xl shadow-lg border border-cyan-700/50"
+      />
+      
+      <div className="text-left text-cyan-100 leading-relaxed md:w-1/2 space-y-1">
+        Motion UI là thư viện <b>Sass</b> gồm các class & mixin giúp tạo hiệu ứng (fade, slide, hinge…)
+        mà không cần viết JavaScript phức tạp.
+      </div>
+    </div>
+
+    <ul className="list-disc list-inside space-y-2 text-left">
+      <li>Dễ dùng với Foundation / Bootstrap</li>
+      <li>Phù hợp web truyền thống</li>
+      <li>Ít linh hoạt hơn các thư viện JS hiện đại</li>
+    </ul>
+
+    {/* DEMO: Fade + Slide bằng CSS */}
+    <p className="text-cyan-300 font-semibold">Demo hiệu ứng CSS đơn giản</p>
+    <div className="flex flex-col md:flex-row gap-6">
+
+      {/* Demo 1: Fade on hover */}
+      <div className="flex-1 space-y-2">
+        <motion.div
+          whileHover={{ opacity: 0.4 }}
+          className="w-28 h-28 bg-purple-600 rounded-xl mx-auto"
+        />
+        <details className="bg-gray-800/60 p-4 rounded-xl border border-cyan-700/40 cursor-pointer">
+          <summary className="text-cyan-300 font-semibold">Code</summary>
+          <pre className="text-gray-200 mt-2 text-sm whitespace-pre-wrap text-left">
+{`<motion.div
+  whileHover={{ opacity: 0.4 }}
+  className="w-28 h-28 bg-purple-600 rounded-xl"
+/>`}
+          </pre>
+        </details>
+      </div>
+
+      {/* Demo 2: Slide on hover */}
+      <div className="flex-1 space-y-2">
+        <motion.div
+          whileHover={{ x: 40 }}
+          className="w-28 h-28 bg-blue-600 rounded-xl mx-auto"
+        />
+        <details className="bg-gray-800/60 p-4 rounded-xl border border-cyan-700/40 cursor-pointer">
+          <summary className="text-cyan-300 font-semibold">Code</summary>
+          <pre className="text-gray-200 mt-2 text-sm whitespace-pre-wrap text-left">
+{`<motion.div
+  whileHover={{ x: 40 }}
+  className="w-28 h-28 bg-blue-600 rounded-xl"
+/>`}
+          </pre>
+        </details>
+      </div>
+
+    </div>
+  </div>
+</Slide>
+
+
+<Slide
+  index={13}
+  bgColor="bg-gradient-to-b from-cyan-950 to-black"
+  title="Các thư viện & Công cụ hỗ trợ"
+>
+  <div className="max-w-5xl mx-auto text-gray-200 mt-10 space-y-8">
+
+    <h3 className="text-cyan-300 text-xl font-semibold">Các thư viện khác</h3>
+
+{/* Carousel thư viện */}
+        <div className="flex flex-col items-center space-y-4">
+          <div className="flex items-center space-x-4">
+            <button
+              onClick={prev}
+              className="text-cyan-300 text-3xl font-bold px-4 py-2 rounded-full border border-cyan-700/50 hover:bg-cyan-700/20"
+            >
+              ‹
+            </button>
+
+            <div className="flex gap-16">
+              {visible.map((lib) => (
+                <div key={lib.name} className="flex flex-col items-center space-y-2">
+                  <img src={lib.logo} alt={lib.name} className="w-32 h-32 object-contain" />
+                  <span className="text-gray-200 text-lg font-semibold">{lib.name}</span>
+                </div>
+              ))}
+            </div>
+
+            <button
+              onClick={next}
+              className="text-cyan-300 text-3xl font-bold px-4 py-2 rounded-full border border-cyan-700/50 hover:bg-cyan-700/20"
+            >
+              ›
+            </button>
+          </div>
+        </div>
+
+    <h3 className="text-cyan-300 text-xl font-semibold">Công cụ thiết kế</h3>
+    <p>Figma, Adobe XD, After Effects + Bodymovin (LottieFiles)</p>
+
+  </div>
+</Slide>
+
+      <Slide
+        index={14}
         bgColor="bg-gradient-to-b from-black to-cyan-950"
         title="Tổng kết"
       >
@@ -894,7 +1232,7 @@ export default function Page() {
       </Slide>
 
       <Slide
-        index={11}
+        index={15}
         bgColor="bg-gradient-to-b from-cyan-950 via-black to-cyan-950"
         title="Demo Parallax Toàn Trang"
       >
@@ -906,15 +1244,6 @@ export default function Page() {
         </a>
       </Slide>
 
-      {/* <Slide
-        index={12}
-        bgColor="bg-gradient-to-b from-cyan-950 via-black to-cyan-950"
-        title=""
-      >
-        <div className="flex flex-col items-center justify-center h-[70vh] text-center space-y-6">
-          <ConfettiFinale />
-        </div>
-      </Slide> */}
     </main>
   );
 }
