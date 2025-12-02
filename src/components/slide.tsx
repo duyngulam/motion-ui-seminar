@@ -13,7 +13,9 @@ interface SlideProps {
 export default function Slide({ title, children, index, bgColor }: SlideProps) {
   return (
     <section
-      className={`min-h-screen flex flex-col justify-center items-center text-center p-8 snap-start ${bgColor ?? "bg-black"}`}
+      className={`min-h-screen flex flex-col justify-center items-center text-center p-8 snap-start ${
+        bgColor ?? "bg-black"
+      }`}
     >
       <motion.div
         initial={{ opacity: 0, y: 100 }}
