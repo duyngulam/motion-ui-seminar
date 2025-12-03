@@ -856,8 +856,6 @@ export default function Page() {
         title="Một số Motion UI nâng cao"
       >
         <div className="max-w-5xl mx-auto mt-8 flex flex-col items-center">
-          {/* <MotionPlaygroundAdvanced /> */}
-
           <a
             href="/parallax"
             className="mt-6 px-6 py-3 bg-cyan-600 hover:bg-cyan-700 text-white rounded-xl font-semibold transition-colors"
@@ -1019,160 +1017,169 @@ export default function Page() {
           </p>
         </div>
       </Slide>
-      
+
       <Slide
         index={13}
         bgColor="bg-gradient-to-b from-black to-cyan-900"
         title="Framer Motion"
       >
-  <div className="max-w-5xl mx-auto text-gray-200 mt-8 space-y-6">
+        <div className="max-w-5xl mx-auto text-gray-200 mt-8 space-y-6">
+          <div className="flex flex-col md:flex-row items-center justify-between w-full max-w-5xl mx-auto">
+            <div className="text-left text-cyan-100 leading-relaxed md:w-1/2 space-y-1">
+              Framer Motion là thư viện animation dành cho React (có phiên bản
+              JS & Vue). Cung cấp API khai báo tự nhiên ngay trong component:
+            </div>
 
-    <div className="flex flex-col md:flex-row items-center justify-between w-full max-w-5xl mx-auto">
-      <div className="text-left text-cyan-100 leading-relaxed md:w-1/2 space-y-1">
-      Framer Motion là thư viện animation dành cho React (có phiên bản JS & Vue).
-      Cung cấp API khai báo tự nhiên ngay trong component:
-      </div>
+            <img
+              src="/framerMotion.png"
+              alt="Framer Motion Illustration"
+              className="w-32 md:w-80 rounded-2xl shadow-lg border border-cyan-700/50"
+            />
+          </div>
 
-      <img
-        src="/framerMotion.png"
-        alt="Framer Motion Illustration"
-        className="w-32 md:w-80 rounded-2xl shadow-lg border border-cyan-700/50"
-      />
-    </div>
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ duration: 0.8 }}
+            className="bg-gray-800/60 p-5 rounded-xl border border-cyan-700/40"
+          >
+            <code className="text-cyan-300">
+              {`<motion.div animate={{ x: 100 }} />`}
+            </code>
+          </motion.div>
 
-    <motion.div
-      initial={{ opacity: 0 }}
-      whileInView={{ opacity: 1 }}
-      transition={{ duration: 0.8 }}
-      className="bg-gray-800/60 p-5 rounded-xl border border-cyan-700/40"
-    >
-      <code className="text-cyan-300">
-        {`<motion.div animate={{ x: 100 }} />`}
-      </code>
-    </motion.div>
+          <ul className="list-disc list-inside space-y-2 text-left">
+            <li>Tối ưu hiệu năng, GPU-accelerated</li>
+            <li>Layout animation mạnh (tự tính toán vị trí)</li>
+            <li>AnimatePresence hỗ trợ animation vào/ra</li>
+            <li>Không cần ref như GSAP trong React</li>
+          </ul>
 
-    <ul className="list-disc list-inside space-y-2 text-left">
-      <li>Tối ưu hiệu năng, GPU-accelerated</li>
-      <li>Layout animation mạnh (tự tính toán vị trí)</li>
-      <li>AnimatePresence hỗ trợ animation vào/ra</li>
-      <li>Không cần ref như GSAP trong React</li>
-    </ul>
-
-    {/* DEMO */}
-    <div className="flex flex-col md:flex-row gap-6">
-
-    <div className="flex-1 space-y-2">
-      <p className="text-cyan-300 font-semibold mb-3">🔹 Hover để xem chuyển động</p>
-      <motion.div
-        whileHover={{ x: 80, rotate: 8, scale: 1.1 }}
-        transition={{ type: "spring", stiffness: 120 }}
-        className="w-24 h-24 bg-cyan-600 rounded-xl shadow-lg"
-      />
-      <details className="bg-gray-800/60 p-4 rounded-xl border border-cyan-700/40 cursor-pointer">
-        <summary className="text-cyan-300 font-semibold">Code</summary>
-        <pre className="text-gray-200 mt-2 text-sm whitespace-pre-wrap text-left">
-        {`<motion.div
+          {/* DEMO */}
+          <div className="flex flex-col md:flex-row gap-6">
+            <div className="flex-1 space-y-2">
+              <p className="text-cyan-300 font-semibold mb-3">
+                🔹 Hover để xem chuyển động
+              </p>
+              <motion.div
+                whileHover={{ x: 80, rotate: 8, scale: 1.1 }}
+                transition={{ type: "spring", stiffness: 120 }}
+                className="w-24 h-24 bg-cyan-600 rounded-xl shadow-lg"
+              />
+              <details className="bg-gray-800/60 p-4 rounded-xl border border-cyan-700/40 cursor-pointer">
+                <summary className="text-cyan-300 font-semibold">Code</summary>
+                <pre className="text-gray-200 mt-2 text-sm whitespace-pre-wrap text-left">
+                  {`<motion.div
           whileHover={{ x: 80, rotate: 8, scale: 1.1 }}
           transition={{ type: 'spring', stiffness: 120 }}
           className='w-24 h-24 bg-cyan-600 rounded-xl shadow-lg'
-        />`}</pre>
-      </details>
-    </div>
+        />`}
+                </pre>
+              </details>
+            </div>
 
-    {/* DEMO 2 */}
-    <div className="flex-1 space-y-2">
-      <p className="text-cyan-300 font-semibold">🔹 Infinity</p>
-      <motion.div
-        animate={{ scale: [1, 1.3, 1] }}
-        transition={{ repeat: Infinity, duration: 1.5 }}
-        className="w-24 h-24 bg-purple-600 rounded-xl shadow-lg"
-      />
-      <details className="bg-gray-800/60 p-4 rounded-xl border border-cyan-700/40 cursor-pointer">
-        <summary className="text-cyan-300 font-semibold">Code</summary>
-        <pre className="text-gray-200 mt-2 text-sm whitespace-pre-wrap text-left">
-        {`<motion.div
+            {/* DEMO 2 */}
+            <div className="flex-1 space-y-2">
+              <p className="text-cyan-300 font-semibold">🔹 Infinity</p>
+              <motion.div
+                animate={{ scale: [1, 1.3, 1] }}
+                transition={{ repeat: Infinity, duration: 1.5 }}
+                className="w-24 h-24 bg-purple-600 rounded-xl shadow-lg"
+              />
+              <details className="bg-gray-800/60 p-4 rounded-xl border border-cyan-700/40 cursor-pointer">
+                <summary className="text-cyan-300 font-semibold">Code</summary>
+                <pre className="text-gray-200 mt-2 text-sm whitespace-pre-wrap text-left">
+                  {`<motion.div
           animate={{ scale: [1, 1.3, 1] }}
           transition={{ repeat: Infinity, duration: 1.5 }}
           className='w-24 h-24 bg-purple-600 rounded-xl shadow-lg'
-        />`}</pre>
-      </details>
-    </div>
-    </div>
-  </div>
+        />`}
+                </pre>
+              </details>
+            </div>
+          </div>
+        </div>
       </Slide>
 
-<Slide
-  index={14}
-  bgColor="bg-gradient-to-b from-gray-900 to-black"
-  title="Anime.js"
->
-  <div className="max-w-6xl mx-auto text-gray-200 mt-8 space-y-6">
+      <Slide
+        index={14}
+        bgColor="bg-gradient-to-b from-gray-900 to-black"
+        title="Anime.js"
+      >
+        <div className="max-w-6xl mx-auto text-gray-200 mt-8 space-y-6">
+          <div className="flex flex-col md:flex-row items-center justify-between w-full max-w-6xl mx-auto">
+            <div className="text-left text-cyan-100 leading-relaxed md:w-1/2 space-y-1">
+              Anime.js là thư viện JS nhỏ gọn, API trực quan và dễ học. Hỗ trợ
+              animate CSS, SVG, DOM, Object.
+            </div>
 
-    <div className="flex flex-col md:flex-row items-center justify-between w-full max-w-6xl mx-auto">
-      <div className="text-left text-cyan-100 leading-relaxed md:w-1/2 space-y-1">
-        Anime.js là thư viện JS nhỏ gọn, API trực quan và dễ học.  
-        Hỗ trợ animate CSS, SVG, DOM, Object.
-      </div>
+            <img
+              src="/animejs.jpg"
+              alt="Anime.js Illustration"
+              className="w-32 md:w-80 rounded-2xl shadow-lg border border-cyan-700/50"
+            />
+          </div>
 
-      <img
-        src="/animejs.jpg"
-        alt="Anime.js Illustration"
-        className="w-32 md:w-80 rounded-2xl shadow-lg border border-cyan-700/50"
-      />
-    </div>
+          <p className="text-cyan-300 font-semibold">Demo minh hoạ</p>
 
-    <p className="text-cyan-300 font-semibold">Demo minh hoạ</p>
-
-    {/* Container cho 3 demo */}
-    <div className="flex flex-col md:flex-row gap-6">
-
-      {/* Demo 1: translateX */}
-      <div className="flex-1 space-y-2">
-        <div className="relative h-32 flex justify-center items-center">
-          <div id="anime-box" className="box w-12 h-12 bg-pink-500 rounded-xl"></div>
-        </div>
-        <details className="bg-gray-800/60 p-4 rounded-xl border border-cyan-700/40 cursor-pointer">
-          <summary className="text-cyan-300 font-semibold">Code</summary>
-          <pre className="text-gray-200 mt-2 text-sm whitespace-pre-wrap text-left">
-            {`anime({
+          {/* Container cho 3 demo */}
+          <div className="flex flex-col md:flex-row gap-6">
+            {/* Demo 1: translateX */}
+            <div className="flex-1 space-y-2">
+              <div className="relative h-32 flex justify-center items-center">
+                <div
+                  id="anime-box"
+                  className="box w-12 h-12 bg-pink-500 rounded-xl"
+                ></div>
+              </div>
+              <details className="bg-gray-800/60 p-4 rounded-xl border border-cyan-700/40 cursor-pointer">
+                <summary className="text-cyan-300 font-semibold">Code</summary>
+                <pre className="text-gray-200 mt-2 text-sm whitespace-pre-wrap text-left">
+                  {`anime({
   targets: "#anime-box",
   translateX: [0, 250],
   direction: "alternate",
   loop: true,
   easing: "easeInOutQuad"
 });`}
-          </pre>
-        </details>
-      </div>
+                </pre>
+              </details>
+            </div>
 
-      {/* Demo 2: rotate liên tục */}
-      <div className="flex-1 space-y-2">
-        <div className="relative h-32 flex justify-center items-center">
-          <div id="rotate-box" className="box w-12 h-12 bg-green-500 rounded-xl"></div>
-        </div>
-        <details className="bg-gray-800/60 p-4 rounded-xl border border-cyan-700/40 cursor-pointer">
-          <summary className="text-cyan-300 font-semibold">Code</summary>
-          <pre className="text-gray-200 mt-2 text-sm whitespace-pre-wrap text-left">
-            {`anime({
+            {/* Demo 2: rotate liên tục */}
+            <div className="flex-1 space-y-2">
+              <div className="relative h-32 flex justify-center items-center">
+                <div
+                  id="rotate-box"
+                  className="box w-12 h-12 bg-green-500 rounded-xl"
+                ></div>
+              </div>
+              <details className="bg-gray-800/60 p-4 rounded-xl border border-cyan-700/40 cursor-pointer">
+                <summary className="text-cyan-300 font-semibold">Code</summary>
+                <pre className="text-gray-200 mt-2 text-sm whitespace-pre-wrap text-left">
+                  {`anime({
   targets: "#rotate-box",
   rotate: '1turn',
   loop: true,
   easing: "linear",
   duration: 2000
 });`}
-          </pre>
-        </details>
-      </div>
+                </pre>
+              </details>
+            </div>
 
-      {/* Demo 3: scale lên/xuống */}
-      <div className="flex-1 space-y-2">
-        <div className="relative h-32 flex justify-center items-center">
-          <div id="scale-box" className="box w-12 h-12 bg-blue-500 rounded-xl"></div>
-        </div>
-        <details className="bg-gray-800/60 p-4 rounded-xl border border-cyan-700/40 cursor-pointer">
-          <summary className="text-cyan-300 font-semibold">Code</summary>
-          <pre className="text-gray-200 mt-2 text-sm whitespace-pre-wrap text-left">
-            {`anime({
+            {/* Demo 3: scale lên/xuống */}
+            <div className="flex-1 space-y-2">
+              <div className="relative h-32 flex justify-center items-center">
+                <div
+                  id="scale-box"
+                  className="box w-12 h-12 bg-blue-500 rounded-xl"
+                ></div>
+              </div>
+              <details className="bg-gray-800/60 p-4 rounded-xl border border-cyan-700/40 cursor-pointer">
+                <summary className="text-cyan-300 font-semibold">Code</summary>
+                <pre className="text-gray-200 mt-2 text-sm whitespace-pre-wrap text-left">
+                  {`anime({
   targets: "#scale-box",
   scale: [1, 1.5],
   direction: "alternate",
@@ -1180,15 +1187,14 @@ export default function Page() {
   easing: "easeInOutSine",
   duration: 800
 });`}
-          </pre>
-        </details>
-      </div>
+                </pre>
+              </details>
+            </div>
+          </div>
 
-    </div>
-
-    {/* Script Anime.js */}
-    <script>
-      {`
+          {/* Script Anime.js */}
+          <script>
+            {`
         if (window.anime) {
           anime({
             targets: "#anime-box",
@@ -1216,269 +1222,298 @@ export default function Page() {
           });
         }
       `}
-    </script>
+          </script>
+        </div>
+      </Slide>
 
-  </div>
-</Slide>
+      <Slide
+        index={15}
+        bgColor="bg-gradient-to-b from-black to-gray-900"
+        title="Motion UI (ZURB Foundation)"
+      >
+        <div className="max-w-5xl mx-auto text-gray-200 mt-8 space-y-6">
+          <div className="flex flex-col md:flex-row items-center justify-between w-full max-w-6xl mx-auto space-y-4 md:space-y-0 md:space-x-6">
+            <img
+              src="/image.png"
+              alt="Motion UI ZURB Illustration"
+              className="w-32 md:w-80 rounded-2xl shadow-lg border border-cyan-700/50"
+            />
 
-<Slide
-  index={15}
-  bgColor="bg-gradient-to-b from-black to-gray-900"
-  title="Motion UI (ZURB Foundation)"
->
-  <div className="max-w-5xl mx-auto text-gray-200 mt-8 space-y-6">
+            <div className="text-left text-cyan-100 leading-relaxed md:w-1/2 space-y-1">
+              Motion UI là thư viện <b>Sass</b> gồm các class & mixin giúp tạo
+              hiệu ứng (fade, slide, hinge…) mà không cần viết JavaScript phức
+              tạp.
+            </div>
+          </div>
 
-    <div className="flex flex-col md:flex-row items-center justify-between w-full max-w-6xl mx-auto space-y-4 md:space-y-0 md:space-x-6">
-      <img
-        src="/image.png"
-        alt="Motion UI ZURB Illustration"
-        className="w-32 md:w-80 rounded-2xl shadow-lg border border-cyan-700/50"
-      />
-      
-      <div className="text-left text-cyan-100 leading-relaxed md:w-1/2 space-y-1">
-        Motion UI là thư viện <b>Sass</b> gồm các class & mixin giúp tạo hiệu ứng (fade, slide, hinge…)
-        mà không cần viết JavaScript phức tạp.
-      </div>
-    </div>
+          <ul className="list-disc list-inside space-y-2 text-left">
+            <li>Dễ dùng với Foundation / Bootstrap</li>
+            <li>Phù hợp web truyền thống</li>
+            <li>Ít linh hoạt hơn các thư viện JS hiện đại</li>
+          </ul>
 
-    <ul className="list-disc list-inside space-y-2 text-left">
-      <li>Dễ dùng với Foundation / Bootstrap</li>
-      <li>Phù hợp web truyền thống</li>
-      <li>Ít linh hoạt hơn các thư viện JS hiện đại</li>
-    </ul>
-
-    {/* DEMO: Fade + Slide bằng CSS */}
-    <p className="text-cyan-300 font-semibold">Demo hiệu ứng CSS đơn giản</p>
-    <div className="flex flex-col md:flex-row gap-6">
-
-      {/* Demo 1: Fade on hover */}
-      <div className="flex-1 space-y-2">
-        <motion.div
-          whileHover={{ opacity: 0.4 }}
-          className="w-28 h-28 bg-purple-600 rounded-xl mx-auto"
-        />
-        <details className="bg-gray-800/60 p-4 rounded-xl border border-cyan-700/40 cursor-pointer">
-          <summary className="text-cyan-300 font-semibold">Code</summary>
-          <pre className="text-gray-200 mt-2 text-sm whitespace-pre-wrap text-left">
-{`<motion.div
+          {/* DEMO: Fade + Slide bằng CSS */}
+          <p className="text-cyan-300 font-semibold">
+            Demo hiệu ứng CSS đơn giản
+          </p>
+          <div className="flex flex-col md:flex-row gap-6">
+            {/* Demo 1: Fade on hover */}
+            <div className="flex-1 space-y-2">
+              <motion.div
+                whileHover={{ opacity: 0.4 }}
+                className="w-28 h-28 bg-purple-600 rounded-xl mx-auto"
+              />
+              <details className="bg-gray-800/60 p-4 rounded-xl border border-cyan-700/40 cursor-pointer">
+                <summary className="text-cyan-300 font-semibold">Code</summary>
+                <pre className="text-gray-200 mt-2 text-sm whitespace-pre-wrap text-left">
+                  {`<motion.div
   whileHover={{ opacity: 0.4 }}
   className="w-28 h-28 bg-purple-600 rounded-xl"
 />`}
-          </pre>
-        </details>
-      </div>
+                </pre>
+              </details>
+            </div>
 
-      {/* Demo 2: Slide on hover */}
-      <div className="flex-1 space-y-2">
-        <motion.div
-          whileHover={{ x: 40 }}
-          className="w-28 h-28 bg-blue-600 rounded-xl mx-auto"
-        />
-        <details className="bg-gray-800/60 p-4 rounded-xl border border-cyan-700/40 cursor-pointer">
-          <summary className="text-cyan-300 font-semibold">Code</summary>
-          <pre className="text-gray-200 mt-2 text-sm whitespace-pre-wrap text-left">
-{`<motion.div
+            {/* Demo 2: Slide on hover */}
+            <div className="flex-1 space-y-2">
+              <motion.div
+                whileHover={{ x: 40 }}
+                className="w-28 h-28 bg-blue-600 rounded-xl mx-auto"
+              />
+              <details className="bg-gray-800/60 p-4 rounded-xl border border-cyan-700/40 cursor-pointer">
+                <summary className="text-cyan-300 font-semibold">Code</summary>
+                <pre className="text-gray-200 mt-2 text-sm whitespace-pre-wrap text-left">
+                  {`<motion.div
   whileHover={{ x: 40 }}
   className="w-28 h-28 bg-blue-600 rounded-xl"
 />`}
-          </pre>
-        </details>
-      </div>
-
-    </div>
-  </div>
-</Slide>
-
-
-<Slide
-  index={16}
-  bgColor="bg-gradient-to-b from-cyan-950 to-black"
-  title="Các thư viện & Công cụ hỗ trợ"
->
-  <div className="max-w-5xl mx-auto text-gray-200 mt-10 space-y-8">
-
-    <h3 className="text-cyan-300 text-xl font-semibold">Các thư viện khác</h3>
-
-{/* Carousel thư viện */}
-        <div className="flex flex-col items-center space-y-4">
-          <div className="flex items-center space-x-4">
-            <button
-              onClick={prev}
-              className="text-cyan-300 text-3xl font-bold px-4 py-2 rounded-full border border-cyan-700/50 hover:bg-cyan-700/20"
-            >
-              ‹
-            </button>
-
-            <div className="flex gap-16">
-              {visible.map((lib) => (
-                <div key={lib.name} className="flex flex-col items-center space-y-2">
-                  <img src={lib.logo} alt={lib.name} className="w-32 h-32 object-contain" />
-                  <span className="text-gray-200 text-lg font-semibold">{lib.name}</span>
-                </div>
-              ))}
+                </pre>
+              </details>
             </div>
-
-            <button
-              onClick={next}
-              className="text-cyan-300 text-3xl font-bold px-4 py-2 rounded-full border border-cyan-700/50 hover:bg-cyan-700/20"
-            >
-              ›
-            </button>
           </div>
         </div>
+      </Slide>
 
-    <h3 className="text-cyan-300 text-xl font-semibold">Công cụ thiết kế</h3>
-    <p>Figma, Adobe XD, After Effects + Bodymovin (LottieFiles)</p>
+      <Slide
+        index={16}
+        bgColor="bg-gradient-to-b from-cyan-950 to-black"
+        title="Các thư viện & Công cụ hỗ trợ"
+      >
+        <div className="max-w-5xl mx-auto text-gray-200 mt-10 space-y-8">
+          <h3 className="text-cyan-300 text-xl font-semibold">
+            Các thư viện khác
+          </h3>
 
-  </div>
-</Slide>
-<Slide
+          {/* Carousel thư viện */}
+          <div className="flex flex-col items-center space-y-4">
+            <div className="flex items-center space-x-4">
+              <button
+                onClick={prev}
+                className="text-cyan-300 text-3xl font-bold px-4 py-2 rounded-full border border-cyan-700/50 hover:bg-cyan-700/20"
+              >
+                ‹
+              </button>
+
+              <div className="flex gap-16">
+                {visible.map((lib) => (
+                  <div
+                    key={lib.name}
+                    className="flex flex-col items-center space-y-2"
+                  >
+                    <img
+                      src={lib.logo}
+                      alt={lib.name}
+                      className="w-32 h-32 object-contain"
+                    />
+                    <span className="text-gray-200 text-lg font-semibold">
+                      {lib.name}
+                    </span>
+                  </div>
+                ))}
+              </div>
+
+              <button
+                onClick={next}
+                className="text-cyan-300 text-3xl font-bold px-4 py-2 rounded-full border border-cyan-700/50 hover:bg-cyan-700/20"
+              >
+                ›
+              </button>
+            </div>
+          </div>
+
+          <h3 className="text-cyan-300 text-xl font-semibold">
+            Công cụ thiết kế
+          </h3>
+          <p>Figma, Adobe XD, After Effects + Bodymovin (LottieFiles)</p>
+        </div>
+      </Slide>
+
+      <Slide
         index={17}
         bgColor="bg-gradient-to-b from-black to-gray-900"
-        title="Ứng dụng thực tế"
+        title="So sánh giữa các công nghệ Motion UI"
       >
-        <div className="text-left max-w-5xl mx-auto mt-10">
-          <motion.table
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-            viewport={{ once: true, amount: 0.3 }}
-            className="min-w-full text-gray-200 border border-gray-700 rounded-xl overflow-hidden shadow-xl"
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-left max-w-5xl mx-auto mt-6">
+          {/* Cột 1 */}
+          <motion.div
+            initial={{ opacity: 0, x: -50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
           >
-            <thead className="bg-gray-800 text-cyan-300">
-              <tr>
-                <th className="py-3 px-4 text-left text-lg font-semibold">
-                  Ứng dụng
-                </th>
-                <th className="py-3 px-4 text-left text-lg font-semibold">
-                  Cách sử dụng Motion UI
-                </th>
-              </tr>
-            </thead>
+            <h3 className="text-2xl font-bold text-cyan-400 mb-3">
+              Hiệu năng & Kích thước
+            </h3>
+            <ul className="space-y-3 text-gray-200">
+              <li>
+                Framer Motion dùng Web Animations API, GPU-accelerated → mượt
+                hơn GSAP ở tải nặng.
+              </li>
+              <li>
+                Motion hỗ trợ “deferred keyframe resolution”, tối ưu tốc độ khởi
+                chạy (nhanh ~2.5× so với GSAP ở animation từ giá trị ẩn).
+              </li>
+              <li>
+                Gói animate() của Motion chỉ ~2–18KB, GSAP full ~23KB → giảm tải
+                ban đầu cho web.
+              </li>
+            </ul>
+          </motion.div>
 
-            <tbody className="divide-y divide-gray-700">
-              {/* === HÀNG 1 === */}
-              <motion.tr
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                whileHover={{
-                  scale: 1.02,
-                  boxShadow: "0 0 20px rgba(34,211,238,0.4)",
-                  backgroundColor: "rgba(30,41,59,0.6)",
-                }}
-                transition={{ duration: 0.4, ease: "easeOut" }}
-                viewport={{ once: true }}
-                className="cursor-pointer transition-transform"
-              >
-                <td className="py-3 px-4 font-semibold text-cyan-200 flex items-center gap-3">
-                  <motion.span
-                    initial={{ x: -20, opacity: 0 }}
-                    whileInView={{ x: 0, opacity: 1 }}
-                    transition={{ duration: 0.6, ease: "easeOut" }}
-                    viewport={{ once: true }}
-                  >
-                    🛒
-                  </motion.span>
-                  <span>Website thương mại điện tử</span>
-                </td>
-                <td className="py-3 px-4">
-                  Hiệu ứng hover sản phẩm, loading khi thêm vào giỏ hàng
-                </td>
-              </motion.tr>
+          {/* Cột 2 */}
+          <motion.div
+            initial={{ opacity: 0, x: 50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            <h3 className="text-2xl font-bold text-cyan-400 mb-3">
+              API & Tích hợp
+            </h3>
+            <ul className="space-y-3 text-gray-200">
+              <li>
+                GSAP thiên về mô hình lệnh (imperative) → mạnh cho animation
+                phức tạp nhưng verbose.
+              </li>
+              <li>
+                Motion cung cấp API khai báo (declarative) → hợp React, code
+                gọn, dễ bảo trì.
+              </li>
+              <li>
+                Ví dụ Motion:{" "}
+                <code>{`<motion.div animate={{ x: 100 }} />`}</code>
+              </li>
+              <li>
+                GSAP với React cần <code>ref</code> + <code>useEffect</code> →
+                kiểm soát thủ công nhiều hơn.
+              </li>
+            </ul>
+          </motion.div>
+        </div>
 
-              {/* === HÀNG 2 === */}
-              <motion.tr
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                whileHover={{
-                  scale: 1.02,
-                  boxShadow: "0 0 20px rgba(34,211,238,0.4)",
-                  backgroundColor: "rgba(30,41,59,0.6)",
-                }}
-                transition={{ duration: 0.4, delay: 0.1, ease: "easeOut" }}
-                viewport={{ once: true }}
-                className="cursor-pointer transition-transform"
-              >
-                <td className="py-3 px-4 font-semibold text-cyan-200 flex items-center gap-3">
-                  <motion.span
-                    initial={{ x: -20, opacity: 0 }}
-                    whileInView={{ x: 0, opacity: 1 }}
-                    transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
-                    viewport={{ once: true }}
-                  >
-                    📱
-                  </motion.span>
-                  <span>Ứng dụng di động</span>
-                </td>
-                <td className="py-3 px-4">
-                  Menu trượt, hiệu ứng chuyển trang, loading screen
-                </td>
-              </motion.tr>
+        {/* Hàng 2 */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-left max-w-5xl mx-auto mt-10">
+          <motion.div
+            initial={{ opacity: 0, x: -50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            <h3 className="text-2xl font-bold text-cyan-400 mb-3">
+              Tính năng UI/UX
+            </h3>
+            <ul className="space-y-3 text-gray-200">
+              <li>
+                GSAP mạnh về timeline và plugin (ScrollTrigger, MorphSVG...).
+              </li>
+              <li>
+                Motion mạnh về layout animation – xử lý thay đổi vị trí
+                component mượt.
+              </li>
+              <li>Anime.js: nhẹ, linh hoạt cho CSS/SVG.</li>
+              <li>Lottie: tốt cho animation xuất từ After Effects.</li>
+            </ul>
+          </motion.div>
 
-              {/* === HÀNG 3 === */}
-              <motion.tr
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                whileHover={{
-                  scale: 1.02,
-                  boxShadow: "0 0 20px rgba(34,211,238,0.4)",
-                  backgroundColor: "rgba(30,41,59,0.6)",
-                }}
-                transition={{ duration: 0.4, delay: 0.2, ease: "easeOut" }}
-                viewport={{ once: true }}
-                className="cursor-pointer transition-transform"
-              >
-                <td className="py-3 px-4 font-semibold text-cyan-200 flex items-center gap-3">
-                  <motion.span
-                    initial={{ x: -20, opacity: 0 }}
-                    whileInView={{ x: 0, opacity: 1 }}
-                    transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
-                    viewport={{ once: true }}
-                  >
-                    💰
-                  </motion.span>
-                  <span>Ứng dụng tài chính</span>
-                </td>
-                <td className="py-3 px-4">
-                  Biểu đồ động, hiệu ứng xác nhận giao dịch
-                </td>
-              </motion.tr>
-
-              {/* === HÀNG 4 === */}
-              <motion.tr
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                whileHover={{
-                  scale: 1.02,
-                  boxShadow: "0 0 20px rgba(34,211,238,0.4)",
-                  backgroundColor: "rgba(30,41,59,0.6)",
-                }}
-                transition={{ duration: 0.4, delay: 0.3, ease: "easeOut" }}
-                viewport={{ once: true }}
-                className="cursor-pointer transition-transform"
-              >
-                <td className="py-3 px-4 font-semibold text-cyan-200 flex items-center gap-3">
-                  <motion.span
-                    initial={{ x: -20, opacity: 0 }}
-                    whileInView={{ x: 0, opacity: 1 }}
-                    transition={{ duration: 0.6, delay: 0.3, ease: "easeOut" }}
-                    viewport={{ once: true }}
-                  >
-                    🎬
-                  </motion.span>
-                  <span>Giới thiệu thương hiệu (Branding)</span>
-                </td>
-                <td className="py-3 px-4">
-                  Logo animation, video intro ứng dụng
-                </td>
-              </motion.tr>
-            </tbody>
-          </motion.table>
+          <motion.div
+            initial={{ opacity: 0, x: 50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            <h3 className="text-2xl font-bold text-cyan-400 mb-3">
+              Nhận diện & Hỗ trợ
+            </h3>
+            <ul className="space-y-3 text-gray-200">
+              <li>Motion: MIT, miễn phí, cộng đồng React cực lớn.</li>
+              <li>GSAP: mạnh nhưng license hạn chế với dự án thương mại.</li>
+            </ul>
+          </motion.div>
         </div>
       </Slide>
 
       <Slide
         index={18}
+        bgColor="bg-gradient-to-b from-black to-gray-900"
+        title="Ứng dụng thực tế của Motion UI"
+      >
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-left max-w-5xl mx-auto mt-6">
+          {/* Cột 1 */}
+          <motion.div
+            initial={{ opacity: 0, x: -50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            <h3 className="text-2xl font-bold text-cyan-400 mb-3">
+              Ứng dụng phổ biến
+            </h3>
+            <ul className="space-y-3 text-gray-200">
+              <li>
+                <strong>Website thương mại điện tử:</strong> Hover sản phẩm,
+                loading khi thêm vào giỏ.
+              </li>
+              <li>
+                <strong>Ứng dụng di động:</strong> Menu trượt, hiệu ứng chuyển
+                trang, loading screen.
+              </li>
+              <li>
+                <strong>Ứng dụng tài chính:</strong> Biểu đồ động, xác nhận giao
+                dịch.
+              </li>
+              <li>
+                <strong>Branding:</strong> Logo animation, intro page.
+              </li>
+            </ul>
+          </motion.div>
+
+          {/* Cột 2 */}
+          <motion.div
+            initial={{ opacity: 0, x: 50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            <h3 className="text-2xl font-bold text-cyan-400 mb-3">
+              Ví dụ thực tế
+            </h3>
+            <ul className="space-y-3 text-gray-200">
+              <li>
+                <strong>Apple.com:</strong> cuộn – fade tinh tế để kể chuyện sản
+                phẩm.
+              </li>
+              <li>
+                E-commerce: Hover phóng to sản phẩm, animation “bay vào giỏ”.
+              </li>
+              <li>
+                App di động: Menu slide-in, animation navigation
+                (crossfade/slide).
+              </li>
+              <li>
+                App tài chính: Animation xác nhận (tick xanh), biểu đồ update
+                realtime.
+              </li>
+            </ul>
+          </motion.div>
+        </div>
+      </Slide>
+
+      <Slide
+        index={19}
         bgColor="bg-gradient-to-b from-gray-900 to-black"
         title="Ưu & Nhược điểm của Motion UI"
       >
@@ -1565,8 +1600,9 @@ export default function Page() {
           </motion.div>
         </div>
       </Slide>
+
       <Slide
-        index={19}
+        index={20}
         bgColor="bg-gradient-to-b from-black to-cyan-950"
         title="Tổng kết"
       >
@@ -1577,8 +1613,12 @@ export default function Page() {
             transition={{ duration: 1, ease: "easeOut" }}
             className="text-xl md:text-2xl text-gray-100 italic leading-relaxed"
           >
-            Motion UI không chỉ là <span className="text-cyan-300">“hiệu ứng đẹp”</span>
-            mà là <span className="text-cyan-400 font-semibold">“ngôn ngữ thị giác”</span>
+            Motion UI không chỉ là{" "}
+            <span className="text-cyan-300">“hiệu ứng đẹp”</span>
+            mà là{" "}
+            <span className="text-cyan-400 font-semibold">
+              “ngôn ngữ thị giác”
+            </span>
             giúp giao diện truyền đạt thông tin hiệu quả.
           </motion.p>
 
@@ -1588,12 +1628,17 @@ export default function Page() {
             transition={{ duration: 1, delay: 0.5, ease: "easeOut" }}
             className="text-xl md:text-2xl text-gray-100 italic leading-relaxed"
           >
-            Trong kỷ nguyên <span className="text-cyan-400">trải nghiệm người dùng</span>,
-            Motion UI là <span className="text-cyan-300">“chiếc cầu nối”</span> giữa
+            Trong kỷ nguyên{" "}
+            <span className="text-cyan-400">trải nghiệm người dùng</span>,
+            Motion UI là <span className="text-cyan-300">“chiếc cầu nối”</span>{" "}
+            giữa
             <span className="font-semibold text-cyan-200"> công nghệ </span> và
             <span className="font-semibold text-cyan-200"> cảm xúc</span>.
           </motion.p>
         </div>
+      </Slide>
+      <Slide index={21} bgColor="bg-gradient-to-b from-black to-cyan-950">
+        <ConfettiFinale />
       </Slide>
     </main>
   );
