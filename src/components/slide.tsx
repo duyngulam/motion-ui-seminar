@@ -28,7 +28,8 @@ export default function Slide({ title, children, index, bgColor }: SlideProps) {
             {title}
           </h1>
         )}
-        <div className="text-lg md:text-xl max-w-3xl mx-auto leading-relaxed text-gray-200">
+        {/* fix đây để được slide rộng hơn*/}
+        <div className="text-lg md:text-xl max-w-7xl mx-auto leading-relaxed text-gray-200">
           {children}
         </div>
         <p className="mt-12 text-sm text-gray-600">Slide {index}</p>

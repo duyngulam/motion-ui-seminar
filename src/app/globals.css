@@ -18,17 +18,6 @@
   --foreground: #171717;
 }
 
-<<<<<<< HEAD
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-=======
-
-
->>>>>>> 08fdd1f82b89b05bf2b821cbc38c7318820cbc9a
 html, body {
   scroll-behavior: smooth;
   background-color: black;
