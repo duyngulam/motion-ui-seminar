@@ -263,7 +263,7 @@ function ExpandableCard({
 
   const closedWidth = 320; // px (~w-80)
   const openWidth = 480; // px (~w-120)
-  
+
   return (
     <div className="flex justify-center">
       <motion.div
@@ -297,8 +297,9 @@ function ExpandableCard({
                   transition={{ duration: 0.22 }}
                   className="text-sm text-gray-200 space-y-1"
                 >
-                  <div className="text-[28px] font-semibold text-lg">{info}</div>
-
+                  <div className="text-[28px] font-semibold text-lg">
+                    {info}
+                  </div>
                 </motion.div>
               )}
             </AnimatePresence>
@@ -332,7 +333,9 @@ function SidebarCollapseDemo() {
       >
         <div className="h-full flex flex-col">
           <div className="p-3 flex items-center gap-3">
-            <div className="w-8 h-8 bg-cyan-500 rounded-md flex items-center justify-center">☰</div>
+            <div className="w-8 h-8 bg-cyan-500 rounded-md flex items-center justify-center">
+              ☰
+            </div>
             {!collapsed && <div className="font-semibold">Navigation</div>}
           </div>
 
@@ -345,9 +348,15 @@ function SidebarCollapseDemo() {
               </ul>
             ) : (
               <div className="flex flex-col items-center gap-3 py-4">
-                <div className="w-8 h-8 bg-cyan-500 rounded-md flex items-center justify-center">D</div>
-                <div className="w-8 h-8 bg-cyan-500 rounded-md flex items-center justify-center">O</div>
-                <div className="w-8 h-8 bg-cyan-500 rounded-md flex items-center justify-center">P</div>
+                <div className="w-8 h-8 bg-cyan-500 rounded-md flex items-center justify-center">
+                  D
+                </div>
+                <div className="w-8 h-8 bg-cyan-500 rounded-md flex items-center justify-center">
+                  O
+                </div>
+                <div className="w-8 h-8 bg-cyan-500 rounded-md flex items-center justify-center">
+                  P
+                </div>
               </div>
             )}
           </div>
@@ -458,7 +467,12 @@ function AnimationSequence() {
     // leave the logo positioned by transform (no instant snap) so it moves smoothly
 
     // 3) Reveal center content (appears where logo originally was)
-    await contentControls.start({ opacity: 1, scale: 1, y: 0, transition: { duration: 0.45, ease: "easeOut" } });
+    await contentControls.start({
+      opacity: 1,
+      scale: 1,
+      y: 0,
+      transition: { duration: 0.45, ease: "easeOut" },
+    });
 
     setPlaying(false);
     setHasPlayed(true);
@@ -473,7 +487,14 @@ function AnimationSequence() {
       return () => clearTimeout(t);
     } else {
       // reset animation state so it can replay next time
-      logoControls.set({ left: '50%', top: '50%', x: '-50%', y: '-80%', scale: 0, opacity: 0 });
+      logoControls.set({
+        left: "50%",
+        top: "50%",
+        x: "-50%",
+        y: "-80%",
+        scale: 0,
+        opacity: 0,
+      });
       contentControls.set({ opacity: 0, scale: 0.95, y: 8 });
       setPlaying(false);
       setHasPlayed(false);
@@ -483,9 +504,27 @@ function AnimationSequence() {
   return (
     <div ref={ref} className="w-full h-[70vh] md:h-[80vh] relative">
       {/* Logo - centered initially, will fly to top-left of the slide */}
-      <div style={{ position: 'absolute', left: '50%', top: '50%', transform: 'translate(-50%, -50%)', zIndex: 50, pointerEvents: hasPlayed ? 'none' : 'auto' }}>
-        <motion.div initial={{ x: 0, y: 0, scale: 0, opacity: 0 }} animate={logoControls}>
-          <svg width="140" height="140" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <div
+        style={{
+          position: "absolute",
+          left: "50%",
+          top: "50%",
+          transform: "translate(-50%, -50%)",
+          zIndex: 50,
+          pointerEvents: hasPlayed ? "none" : "auto",
+        }}
+      >
+        <motion.div
+          initial={{ x: 0, y: 0, scale: 0, opacity: 0 }}
+          animate={logoControls}
+        >
+          <svg
+            width="140"
+            height="140"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
             <path d="M12 2L2 22H22L12 2Z" fill="#ffffff" />
           </svg>
         </motion.div>
@@ -699,28 +738,41 @@ export default function Page() {
       >
         <div className="max-w-5xl mx-auto mt-10 flex flex-row items-center gap-8">
           <div>
-          <p className="text-cyan-300 text-lg font-semibold">Hover:</p>
+            <p className="text-cyan-300 text-lg font-semibold">Hover:</p>
             <motion.div
               initial={{ backgroundColor: "#ec4899", scale: 1 }}
-              whileHover={{ scale: 1.08, backgroundColor: "#06b6d4", transition: { duration: 0.28, ease: "easeOut" } }}
+              whileHover={{
+                scale: 1.08,
+                backgroundColor: "#06b6d4",
+                transition: { duration: 0.28, ease: "easeOut" },
+              }}
               className="w-40 h-24 rounded-xl flex items-center justify-center text-white shadow-lg cursor-pointer"
               style={{ backgroundColor: "#ec4899" }}
             >
               Submit
             </motion.div>
           </div>
-            <div>
-              <h4 className="text-cyan-200 font-semibold mb-3 flex-2">expandable card</h4>
-              <ExpandableCard
-                title="Product: Iphone"
-                info= {<p>Vỏ nguyên khối. <br /> Tạo nên một tổng thể <br /> mạnh vô đối.</p>}
-              />
-            </div>
+          <div>
+            <h4 className="text-cyan-200 font-semibold mb-3 flex-2">
+              expandable card
+            </h4>
+            <ExpandableCard
+              title="Product: Iphone"
+              info={
+                <p>
+                  Vỏ nguyên khối. <br /> Tạo nên một tổng thể <br /> mạnh vô
+                  đối.
+                </p>
+              }
+            />
+          </div>
 
-            <div>
-              <h4 className="text-cyan-200 font-semibold mb-3">Sidebar collapse</h4>
-              <SidebarCollapseDemo />
-            </div>
+          <div>
+            <h4 className="text-cyan-200 font-semibold mb-3">
+              Sidebar collapse
+            </h4>
+            <SidebarCollapseDemo />
+          </div>
         </div>
       </Slide>
 
@@ -729,7 +781,7 @@ export default function Page() {
         bgColor="bg-gradient-to-b from-cyan-900 to-black"
         title="Animation"
       >
-     <AnimationSequence/>
+        <AnimationSequence />
       </Slide>
 
       <Slide
@@ -738,21 +790,29 @@ export default function Page() {
         title="Microinteraction"
       >
         <div className="max-w-4xl mx-auto mt-8 space-y-8">
-          <p className="text-cyan-300 text-lg font-semibold text-center">Microinteraction — phản hồi nhỏ nhưng quan trọng</p>
+          <p className="text-cyan-300 text-lg font-semibold text-center">
+            Microinteraction — phản hồi nhỏ nhưng quan trọng
+          </p>
 
           <div className="flex flex-col md:flex-row items-center justify-around gap-8">
             <div>
-              <h4 className="text-cyan-200 font-semibold mb-2 text-center">Shake on error</h4>
+              <h4 className="text-cyan-200 font-semibold mb-2 text-center">
+                Shake on error
+              </h4>
               <ShakeButton />
             </div>
 
             <div>
-              <h4 className="text-cyan-200 font-semibold mb-2 text-center">Modal feedback</h4>
+              <h4 className="text-cyan-200 font-semibold mb-2 text-center">
+                Modal feedback
+              </h4>
               <ModalDemo />
             </div>
 
             <div>
-              <h4 className="text-cyan-200 font-semibold mb-2 text-center">Transaction flow</h4>
+              <h4 className="text-cyan-200 font-semibold mb-2 text-center">
+                Transaction flow
+              </h4>
               <BankTransferDemo />
             </div>
           </div>
@@ -765,7 +825,9 @@ export default function Page() {
         title="Morphing"
       >
         <div className="max-w-5xl mx-auto mt-12 flex flex-col items-center gap-8">
-          <p className="text-cyan-300 text-lg font-semibold">Morphing — chuyển đổi hình dạng hoặc biểu tượng</p>
+          <p className="text-cyan-300 text-lg font-semibold">
+            Morphing — chuyển đổi hình dạng hoặc biểu tượng
+          </p>
 
           <div className="flex flex-wrap justify-center gap-8">
             <motion.div
@@ -776,14 +838,14 @@ export default function Page() {
               Hover to round
             </motion.div>
 
-              {/* <div className="flex flex-col items-center">
+            {/* <div className="flex flex-col items-center">
                 <p className="text-gray-200 mb-3">Advanced morphing</p>
                 <MotionPlaygroundAdvanced />
               </div> */}
 
-              <div className="flex flex-col items-center">
-                <MorphToggle />
-              </div>
+            <div className="flex flex-col items-center">
+              <MorphToggle />
+            </div>
           </div>
         </div>
       </Slide>
@@ -882,14 +944,20 @@ export default function Page() {
         <div className="max-w-4xl mx-auto mt-10 text-gray-200 space-y-6">
           <p className="text-cyan-300 text-lg font-semibold">Giới thiệu</p>
           <p>
-            Hiện nay, nhờ các công cụ như <strong>GSAP</strong> hay <strong>Framer Motion</strong>, việc thêm
-            chuyển động vào giao diện trở nên cực kỳ dễ dàng — và hiệu ứng lại rất mượt mà.
+            Hiện nay, nhờ các công cụ như <strong>GSAP</strong> hay{" "}
+            <strong>Framer Motion</strong>, việc thêm chuyển động vào giao diện
+            trở nên cực kỳ dễ dàng — và hiệu ứng lại rất mượt mà.
           </p>
 
           <ul className="list-disc list-inside">
             <li>GSAP — mạnh mẽ cho animation phức tạp (canvas, SVG, DOM).</li>
-            <li>Framer Motion — thư viện React, API khai báo, dễ dùng cho UI.</li>
-            <li>Anime.js, Lottie, và các công cụ thiết kế như Figma / After Effects.</li>
+            <li>
+              Framer Motion — thư viện React, API khai báo, dễ dùng cho UI.
+            </li>
+            <li>
+              Anime.js, Lottie, và các công cụ thiết kế như Figma / After
+              Effects.
+            </li>
           </ul>
         </div>
       </Slide>
@@ -900,20 +968,32 @@ export default function Page() {
         title="CSS & JavaScript cơ bản"
       >
         <div className="max-w-4xl mx-auto mt-8 text-gray-200 space-y-6">
-          <p className="text-cyan-300 text-lg font-semibold text-center">Các kỹ thuật nền tảng</p>
+          <p className="text-cyan-300 text-lg font-semibold text-center">
+            Các kỹ thuật nền tảng
+          </p>
 
           <ul className="list-disc list-inside">
-            <li><code className="text-cyan-300">transition</code></li>
-            <li><code className="text-cyan-300">transform</code></li>
-            <li><code className="text-cyan-300">@keyframes</code></li>
-            <li><code className="text-cyan-300">animation</code></li>
+            <li>
+              <code className="text-cyan-300">transition</code>
+            </li>
+            <li>
+              <code className="text-cyan-300">transform</code>
+            </li>
+            <li>
+              <code className="text-cyan-300">@keyframes</code>
+            </li>
+            <li>
+              <code className="text-cyan-300">animation</code>
+            </li>
           </ul>
 
           <div className="bg-gray-800 p-4 rounded-md">
-            <pre className="text-sm text-gray-100 overflow-auto"><code>{`button:hover {
+            <pre className="text-sm text-gray-100 overflow-auto">
+              <code>{`button:hover {
   transform: scale(1.05);
   transition: all 0.3s ease-in-out;
-}`}</code></pre>
+}`}</code>
+            </pre>
           </div>
           {/* Live demo */}
           <CSSDemo />
@@ -926,12 +1006,16 @@ export default function Page() {
         title="GSAP (GreenSock)"
       >
         <div className="max-w-4xl mx-auto mt-8 text-gray-200 space-y-4">
-          <p className="text-cyan-300 text-lg font-semibold">Một thư viện animation mạnh mẽ</p>
+          <p className="text-cyan-300 text-lg font-semibold">
+            Một thư viện animation mạnh mẽ
+          </p>
 
           <p>
-            GSAP là một trong những thư viện animation mạnh mẽ và hiệu năng cao nhất. Nó hỗ trợ
-            timeline phức tạp, dễ điều khiển tuần tự các animation và làm việc tốt trên canvas, SVG
-            và DOM. GSAP còn có plugin như <em>ScrollTrigger</em> hay <em>MotionPath</em> để tạo animation theo cuộn và theo đường đi.
+            GSAP là một trong những thư viện animation mạnh mẽ và hiệu năng cao
+            nhất. Nó hỗ trợ timeline phức tạp, dễ điều khiển tuần tự các
+            animation và làm việc tốt trên canvas, SVG và DOM. GSAP còn có
+            plugin như <em>ScrollTrigger</em> hay <em>MotionPath</em> để tạo
+            animation theo cuộn và theo đường đi.
           </p>
         </div>
       </Slide>
@@ -1511,20 +1595,6 @@ export default function Page() {
           </motion.p>
         </div>
       </Slide>
-
-      <Slide
-        index={15}
-        bgColor="bg-gradient-to-b from-cyan-950 via-black to-cyan-950"
-        title="Demo Parallax Toàn Trang"
-      >
-        <a
-          href="/parallax"
-          className="px-6 py-3 mt-6 bg-cyan-600 hover:bg-cyan-700 text-white rounded-xl font-semibold transition-colors"
-        >
-          🚀 Xem Demo Parallax Toàn Trang
-        </a>
-      </Slide>
-
     </main>
   );
 }
