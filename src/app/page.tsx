@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence, useAnimation } from "framer-motion";
+import { animate } from 'animejs';
 import Slide from "@/components/slide";
 import MotionPlayground from "@/components/motionPlayground";
 import MotionPlaygroundAdvanced from "@/components/motionPlaygroundAdvanced";
@@ -561,19 +562,76 @@ function AnimationSequence() {
 export default function Page() {
   const [added, setAdded] = useState(false);
   const [startIndex, setStartIndex] = useState(0);
+  const [slideDir, setSlideDir] = useState(0);
 
   const prev = () => {
-    setStartIndex((prev) => (prev - 1 + libraries.length) % libraries.length);
+    setSlideDir(-1);
+    setStartIndex((s) => (s - 1 + libraries.length) % libraries.length);
   };
 
   const next = () => {
-    setStartIndex((prev) => (prev + 1) % libraries.length);
+    setSlideDir(1);
+    setStartIndex((s) => (s + 1) % libraries.length);
   };
 
   const visible = [];
   for (let i = 0; i < 3; i++) {
     visible.push(libraries[(startIndex + i) % libraries.length]);
   }
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    try {
+      animate('#anime-box', {
+        translateX: [0, 250],
+        direction: 'alternate',
+        loop: true,
+        easing: 'easeInOutQuad',
+      });
+
+      animate('#rotate-box', {
+        rotate: '1turn',
+        loop: true,
+        easing: 'linear',
+        duration: 2000,
+      });
+
+      animate('#scale-box', {
+        scale: [1, 1.5],
+        direction: 'alternate',
+        loop: true,
+        easing: 'easeInOutSine',
+        duration: 800,
+      });
+    } catch (e) {
+      // graceful fallback if anime fails
+      // console.warn('anime init failed', e);
+    }
+  }, []);
+
+  // GSAP demo initialization (dynamic import so build doesn't fail if not installed)
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+
+    let mounted = true;
+    (async () => {
+      try {
+        const mod = await import('gsap');
+        const gsap = (mod && (mod.default ?? mod)) as any;
+        if (!mounted || !gsap) return;
+
+        gsap.to('#gsap-box-1', { x: 250, yoyo: true, repeat: -1, duration: 1.2, ease: 'power1.inOut' });
+        gsap.to('#gsap-box-2', { rotation: 360, repeat: -1, duration: 2, ease: 'none' });
+        gsap.to('#gsap-box-3', { scale: 1.5, yoyo: true, repeat: -1, duration: 0.8, ease: 'sine.inOut' });
+      } catch (e) {
+        // GSAP not available — ignore
+      }
+    })();
+
+    return () => {
+      mounted = false;
+    };
+  }, []);
 
   return (
     <main className="w-full">
@@ -860,7 +918,7 @@ export default function Page() {
             href="/parallax"
             className="mt-6 px-6 py-3 bg-cyan-600 hover:bg-cyan-700 text-white rounded-xl font-semibold transition-colors"
           >
-            🚀 Xem Parallax Toàn Trang
+            Parallax Scrolling Effect
           </a>
         </div>
       </Slide>
@@ -918,19 +976,6 @@ export default function Page() {
             </ul>
           </div>
 
-          <div className="pt-8 border-t border-gray-700">
-            <h3 className="text-cyan-400 text-2xl font-semibold mb-4">
-              Ví dụ thực tế 💳
-            </h3>
-            <p className="text-gray-300 mb-4">
-              Trong ứng dụng ngân hàng, khi người dùng bấm{" "}
-              <em>“Chuyển tiền”</em>:
-              <br /> Nút đổi màu xanh → hiển thị loading → hiện dấu check ✅ →
-              thông báo “Giao dịch thành công” mượt mà.
-            </p>
-
-            <BankTransferDemo />
-          </div>
         </div>
       </Slide>
 
@@ -1016,6 +1061,44 @@ export default function Page() {
             animation theo cuộn và theo đường đi.
           </p>
         </div>
+        {/* GSAP live demo: three small boxes to demonstrate translate/rotate/scale */}
+        <div className="flex flex-col md:flex-row gap-6 mt-6">
+          <div className="flex-1 space-y-2">
+            <div className="relative h-32 flex justify-center items-center">
+              <div id="gsap-box-1" className="box w-12 h-12 bg-rose-500 rounded-xl"></div>
+            </div>
+            <details className="bg-gray-800/60 p-4 rounded-xl border border-cyan-700/40 cursor-pointer">
+              <summary className="text-cyan-300 font-semibold">Code</summary>
+              <pre className="text-gray-200 mt-2 text-sm whitespace-pre-wrap text-left">
+{`gsap.to('#gsap-box-1', { x: 250, yoyo: true, repeat: -1, duration: 1.2, ease: 'power1.inOut' })`}
+              </pre>
+            </details>
+          </div>
+
+          <div className="flex-1 space-y-2">
+            <div className="relative h-32 flex justify-center items-center">
+              <div id="gsap-box-2" className="box w-12 h-12 bg-emerald-500 rounded-xl"></div>
+            </div>
+            <details className="bg-gray-800/60 p-4 rounded-xl border border-cyan-700/40 cursor-pointer">
+              <summary className="text-cyan-300 font-semibold">Code</summary>
+              <pre className="text-gray-200 mt-2 text-sm whitespace-pre-wrap text-left">
+{`gsap.to('#gsap-box-2', { rotation: 360, repeat: -1, duration: 2, ease: 'none' })`}
+              </pre>
+            </details>
+          </div>
+
+          <div className="flex-1 space-y-2">
+            <div className="relative h-32 flex justify-center items-center">
+              <div id="gsap-box-3" className="box w-12 h-12 bg-sky-500 rounded-xl"></div>
+            </div>
+            <details className="bg-gray-800/60 p-4 rounded-xl border border-cyan-700/40 cursor-pointer">
+              <summary className="text-cyan-300 font-semibold">Code</summary>
+              <pre className="text-gray-200 mt-2 text-sm whitespace-pre-wrap text-left">
+{`gsap.to('#gsap-box-3', { scale: 1.5, yoyo: true, repeat: -1, duration: 0.8, ease: 'sine.inOut' })`}
+              </pre>
+            </details>
+          </div>
+        </div>
       </Slide>
 
       <Slide
@@ -1023,77 +1106,78 @@ export default function Page() {
         bgColor="bg-gradient-to-b from-black to-cyan-900"
         title="Framer Motion"
       >
-        <div className="max-w-5xl mx-auto text-gray-200 mt-8 space-y-6">
-          <div className="flex flex-col md:flex-row items-center justify-between w-full max-w-5xl mx-auto">
-            <div className="text-left text-cyan-100 leading-relaxed md:w-1/2 space-y-1">
-              Framer Motion là thư viện animation dành cho React (có phiên bản
-              JS & Vue). Cung cấp API khai báo tự nhiên ngay trong component:
+          <div className="max-w-5xl mx-auto text-gray-200 mt-6 relative">
+            {/* floating image - removed from document flow */}
+<img
+  src="/framerMotion.png"
+  alt="Framer Motion Illustration"
+  className="
+    pointer-events-none
+    top-1/2
+    left-1/2
+    translate-x-1
+    translate-y-0
+    w-28 md:w-56
+    rounded-2xl
+    shadow-lg
+    border border-cyan-700/50
+    opacity-95
+  "
+/>
+          <div className="flex flex-col md:flex-row gap-6">
+            <div className="flex-1 space-y-4">
+              <div className="text-left text-cyan-100 leading-relaxed">
+                Framer Motion là thư viện animation dành cho React (có phiên bản
+                JS & Vue). Cung cấp API khai báo tự nhiên ngay trong component:
+              </div>
+
+              <motion.div
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                transition={{ duration: 0.8 }}
+                className="bg-gray-800/60 p-4 rounded-xl border border-cyan-700/40"
+              >
+                <code className="text-cyan-300 text-sm">
+                  {`<motion.div animate={{ x: 100 }} />`}
+                </code>
+              </motion.div>
+
+              <ul className="list-disc list-inside space-y-2 text-left text-sm">
+                <li>Tối ưu hiệu năng, GPU-accelerated</li>
+                <li>Layout animation mạnh (tự tính toán vị trí)</li>
+                <li>AnimatePresence hỗ trợ animation vào/ra</li>
+                <li>Không cần ref như GSAP trong React</li>
+              </ul>
             </div>
 
-            <img
-              src="/framerMotion.png"
-              alt="Framer Motion Illustration"
-              className="w-32 md:w-80 rounded-2xl shadow-lg border border-cyan-700/50"
-            />
-          </div>
-
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            transition={{ duration: 0.8 }}
-            className="bg-gray-800/60 p-5 rounded-xl border border-cyan-700/40"
-          >
-            <code className="text-cyan-300">
-              {`<motion.div animate={{ x: 100 }} />`}
-            </code>
-          </motion.div>
-
-          <ul className="list-disc list-inside space-y-2 text-left">
-            <li>Tối ưu hiệu năng, GPU-accelerated</li>
-            <li>Layout animation mạnh (tự tính toán vị trí)</li>
-            <li>AnimatePresence hỗ trợ animation vào/ra</li>
-            <li>Không cần ref như GSAP trong React</li>
-          </ul>
-
-          {/* DEMO */}
-          <div className="flex flex-col md:flex-row gap-6">
-            <div className="flex-1 space-y-2">
-              <p className="text-cyan-300 font-semibold mb-3">
-                🔹 Hover để xem chuyển động
-              </p>
+            <div className="flex-1 space-y-4">
+              <p className="text-cyan-300 font-semibold">🔹 Hover to see motion</p>
               <motion.div
-                whileHover={{ x: 80, rotate: 8, scale: 1.1 }}
+                whileHover={{ x: 80, rotate: 8, scale: 1.05 }}
                 transition={{ type: "spring", stiffness: 120 }}
                 className="w-24 h-24 bg-cyan-600 rounded-xl shadow-lg"
               />
-              <details className="bg-gray-800/60 p-4 rounded-xl border border-cyan-700/40 cursor-pointer">
+
+              <details className="bg-gray-800/60 p-3 rounded-xl border border-cyan-700/40 cursor-pointer">
                 <summary className="text-cyan-300 font-semibold">Code</summary>
                 <pre className="text-gray-200 mt-2 text-sm whitespace-pre-wrap text-left">
-                  {`<motion.div
-          whileHover={{ x: 80, rotate: 8, scale: 1.1 }}
-          transition={{ type: 'spring', stiffness: 120 }}
-          className='w-24 h-24 bg-cyan-600 rounded-xl shadow-lg'
-        />`}
+{`<motion.div whileHover={{ x: 80, rotate: 8, scale: 1.1 }} transition={{ type: 'spring', stiffness: 120 }} className='w-24 h-24 bg-cyan-600 rounded-xl' />`}
                 </pre>
               </details>
             </div>
 
-            {/* DEMO 2 */}
-            <div className="flex-1 space-y-2">
+            <div className="flex-1 space-y-4">
               <p className="text-cyan-300 font-semibold">🔹 Infinity</p>
               <motion.div
                 animate={{ scale: [1, 1.3, 1] }}
                 transition={{ repeat: Infinity, duration: 1.5 }}
                 className="w-24 h-24 bg-purple-600 rounded-xl shadow-lg"
               />
-              <details className="bg-gray-800/60 p-4 rounded-xl border border-cyan-700/40 cursor-pointer">
+
+              <details className="bg-gray-800/60 p-3 rounded-xl border border-cyan-700/40 cursor-pointer">
                 <summary className="text-cyan-300 font-semibold">Code</summary>
                 <pre className="text-gray-200 mt-2 text-sm whitespace-pre-wrap text-left">
-                  {`<motion.div
-          animate={{ scale: [1, 1.3, 1] }}
-          transition={{ repeat: Infinity, duration: 1.5 }}
-          className='w-24 h-24 bg-purple-600 rounded-xl shadow-lg'
-        />`}
+{`<motion.div animate={{ scale: [1, 1.3, 1] }} transition={{ repeat: Infinity, duration: 1.5 }} className='w-24 h-24 bg-purple-600 rounded-xl' />`}
                 </pre>
               </details>
             </div>
@@ -1107,7 +1191,7 @@ export default function Page() {
         title="Anime.js"
       >
         <div className="max-w-6xl mx-auto text-gray-200 mt-8 space-y-6">
-          <div className="flex flex-col md:flex-row items-center justify-between w-full max-w-6xl mx-auto">
+          <div className="flex flex-col md:flex-row items-center justify-between w-full max-w-6xl mx-auto">   
             <div className="text-left text-cyan-100 leading-relaxed md:w-1/2 space-y-1">
               Anime.js là thư viện JS nhỏ gọn, API trực quan và dễ học. Hỗ trợ
               animate CSS, SVG, DOM, Object.
@@ -1135,13 +1219,13 @@ export default function Page() {
               <details className="bg-gray-800/60 p-4 rounded-xl border border-cyan-700/40 cursor-pointer">
                 <summary className="text-cyan-300 font-semibold">Code</summary>
                 <pre className="text-gray-200 mt-2 text-sm whitespace-pre-wrap text-left">
-                  {`anime({
+                  {`animate({
   targets: "#anime-box",
   translateX: [0, 250],
   direction: "alternate",
   loop: true,
   easing: "easeInOutQuad"
-});`}
+})`}
                 </pre>
               </details>
             </div>
@@ -1157,7 +1241,7 @@ export default function Page() {
               <details className="bg-gray-800/60 p-4 rounded-xl border border-cyan-700/40 cursor-pointer">
                 <summary className="text-cyan-300 font-semibold">Code</summary>
                 <pre className="text-gray-200 mt-2 text-sm whitespace-pre-wrap text-left">
-                  {`anime({
+                  {`animate({
   targets: "#rotate-box",
   rotate: '1turn',
   loop: true,
@@ -1179,7 +1263,7 @@ export default function Page() {
               <details className="bg-gray-800/60 p-4 rounded-xl border border-cyan-700/40 cursor-pointer">
                 <summary className="text-cyan-300 font-semibold">Code</summary>
                 <pre className="text-gray-200 mt-2 text-sm whitespace-pre-wrap text-left">
-                  {`anime({
+                  {`animate({
   targets: "#scale-box",
   scale: [1, 1.5],
   direction: "alternate",
@@ -1192,37 +1276,7 @@ export default function Page() {
             </div>
           </div>
 
-          {/* Script Anime.js */}
-          <script>
-            {`
-        if (window.anime) {
-          anime({
-            targets: "#anime-box",
-            translateX: [0, 250],
-            direction: "alternate",
-            loop: true,
-            easing: "easeInOutQuad"
-          });
-
-          anime({
-            targets: "#rotate-box",
-            rotate: '1turn',
-            loop: true,
-            easing: "linear",
-            duration: 2000
-          });
-
-          anime({
-            targets: "#scale-box",
-            scale: [1, 1.5],
-            direction: "alternate",
-            loop: true,
-            easing: "easeInOutSine",
-            duration: 800
-          });
-        }
-      `}
-          </script>
+          {/* anime.js initialized in useEffect above */}
         </div>
       </Slide>
 
@@ -1231,63 +1285,45 @@ export default function Page() {
         bgColor="bg-gradient-to-b from-black to-gray-900"
         title="Motion UI (ZURB Foundation)"
       >
-        <div className="max-w-5xl mx-auto text-gray-200 mt-8 space-y-6">
-          <div className="flex flex-col md:flex-row items-center justify-between w-full max-w-6xl mx-auto space-y-4 md:space-y-0 md:space-x-6">
+        <div className="max-w-5xl mx-auto text-gray-200 py-8 flex flex-col gap-6">
+          <div className="flex flex-col md:flex-row items-center gap-6 w-full">
             <img
               src="/image.png"
               alt="Motion UI ZURB Illustration"
-              className="w-32 md:w-80 rounded-2xl shadow-lg border border-cyan-700/50"
+              className="w-24 md:w-64 rounded-2xl shadow-lg border border-cyan-700/50 flex-shrink-0"
             />
 
-            <div className="text-left text-cyan-100 leading-relaxed md:w-1/2 space-y-1">
-              Motion UI là thư viện <b>Sass</b> gồm các class & mixin giúp tạo
-              hiệu ứng (fade, slide, hinge…) mà không cần viết JavaScript phức
-              tạp.
+            <div className="text-left text-cyan-100 leading-relaxed md:w-1/2">
+              <p className="mb-2">
+                Motion UI là thư viện <b>Sass</b> gồm các class & mixin giúp tạo
+                hiệu ứng (fade, slide, hinge…) mà không cần viết JavaScript phức
+                tạp.
+              </p>
+              <ul className="list-disc list-inside space-y-1 text-sm">
+                <li>Dễ dùng với Foundation / Bootstrap</li>
+                <li>Phù hợp web truyền thống</li>
+                <li>Ít linh hoạt hơn các thư viện JS hiện đại</li>
+              </ul>
             </div>
           </div>
 
-          <ul className="list-disc list-inside space-y-2 text-left">
-            <li>Dễ dùng với Foundation / Bootstrap</li>
-            <li>Phù hợp web truyền thống</li>
-            <li>Ít linh hoạt hơn các thư viện JS hiện đại</li>
-          </ul>
-
-          {/* DEMO: Fade + Slide bằng CSS */}
-          <p className="text-cyan-300 font-semibold">
-            Demo hiệu ứng CSS đơn giản
-          </p>
-          <div className="flex flex-col md:flex-row gap-6">
-            {/* Demo 1: Fade on hover */}
-            <div className="flex-1 space-y-2">
+          <div className="mt-2">
+            <p className="text-cyan-300 font-semibold mb-3">Demo hiệu ứng CSS</p>
+            <div className="flex items-center justify-start gap-6">
               <motion.div
                 whileHover={{ opacity: 0.4 }}
-                className="w-28 h-28 bg-purple-600 rounded-xl mx-auto"
+                className="w-24 h-24 bg-purple-600 rounded-xl"
               />
-              <details className="bg-gray-800/60 p-4 rounded-xl border border-cyan-700/40 cursor-pointer">
-                <summary className="text-cyan-300 font-semibold">Code</summary>
-                <pre className="text-gray-200 mt-2 text-sm whitespace-pre-wrap text-left">
-                  {`<motion.div
-  whileHover={{ opacity: 0.4 }}
-  className="w-28 h-28 bg-purple-600 rounded-xl"
-/>`}
-                </pre>
-              </details>
-            </div>
 
-            {/* Demo 2: Slide on hover */}
-            <div className="flex-1 space-y-2">
               <motion.div
-                whileHover={{ x: 40 }}
-                className="w-28 h-28 bg-blue-600 rounded-xl mx-auto"
+                whileHover={{ x: 32 }}
+                className="w-24 h-24 bg-blue-600 rounded-xl"
               />
-              <details className="bg-gray-800/60 p-4 rounded-xl border border-cyan-700/40 cursor-pointer">
+
+              <details className="ml-auto bg-gray-800/60 p-3 rounded-xl border border-cyan-700/40 cursor-pointer">
                 <summary className="text-cyan-300 font-semibold">Code</summary>
-                <pre className="text-gray-200 mt-2 text-sm whitespace-pre-wrap text-left">
-                  {`<motion.div
-  whileHover={{ x: 40 }}
-  className="w-28 h-28 bg-blue-600 rounded-xl"
-/>`}
-                </pre>
+                <pre className="text-gray-200 mt-2 text-sm whitespace-pre-wrap text-left">{`<motion.div whileHover={{ opacity: 0.4 }} className='w-24 h-24' />
+<motion.div whileHover={{ x: 32 }} className='w-24 h-24' />`}</pre>
               </details>
             </div>
           </div>
@@ -1314,7 +1350,13 @@ export default function Page() {
                 ‹
               </button>
 
-              <div className="flex gap-16">
+              <motion.div
+                key={startIndex}
+                initial={{ x: slideDir > 0 ? 120 : -120, opacity: 0 }}
+                animate={{ x: 0, opacity: 1 }}
+                transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                className="flex gap-16"
+              >
                 {visible.map((lib) => (
                   <div
                     key={lib.name}
@@ -1330,7 +1372,7 @@ export default function Page() {
                     </span>
                   </div>
                 ))}
-              </div>
+              </motion.div>
 
               <button
                 onClick={next}
@@ -1353,7 +1395,7 @@ export default function Page() {
         bgColor="bg-gradient-to-b from-black to-gray-900"
         title="So sánh giữa các công nghệ Motion UI"
       >
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-left max-w-5xl mx-auto mt-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-left max-w-6xl mx-auto mt-6">
           {/* Cột 1 */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
@@ -1410,7 +1452,7 @@ export default function Page() {
         </div>
 
         {/* Hàng 2 */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-left max-w-5xl mx-auto mt-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-left max-w-6xl mx-auto mt-10">
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}

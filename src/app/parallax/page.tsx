@@ -75,7 +75,7 @@ export default function ParallaxCatDemo() {
           {/* <h2 className="mt-4 text-cyan-100 text-5xl font-bold">
             Scroll back to top
           </h2> */}
-          <ConfettiFinale />
+          {/* <ConfettiFinale /> */}
         </ParallaxLayer>
       </Parallax>
     </div>
